@@ -1,0 +1,83 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Видеокарты",
+        "description": "Категория с видеокартами"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Телефоны",
+        "description": "Категория с мобильными телефонами"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "RTX 4070",
+        "description": null,
+        "image": "",
+        "category": 1,
+        "price": 59999.0,
+        "created_at": "2025-05-13T14:21:35.457Z",
+        "updated_at": "2025-05-13T14:21:35.457Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "RX 7900 XT",
+        "description": null,
+        "image": "",
+        "category": 1,
+        "price": 48999.0,
+        "created_at": "2025-05-13T14:21:45.052Z",
+        "updated_at": "2025-05-13T14:21:45.052Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Google Pixel 9",
+        "description": null,
+        "image": "",
+        "category": 2,
+        "price": 110999.0,
+        "created_at": "2025-05-13T14:21:50.640Z",
+        "updated_at": "2025-05-13T14:21:50.640Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Apple iPhone 16 Pro Max",
+        "description": null,
+        "image": "",
+        "category": 2,
+        "price": 133599.0,
+        "created_at": "2025-05-13T14:21:54.915Z",
+        "updated_at": "2025-05-13T14:21:54.915Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Samsung Galaxy A55",
+        "description": null,
+        "image": "",
+        "category": 2,
+        "price": 31000.0,
+        "created_at": "2025-05-13T14:21:58.552Z",
+        "updated_at": "2025-05-13T14:21:58.552Z"
+    }
+}
+]
