@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<head>
+    {% block title %} {{ product_detail.name }} {% endblock %}
+</head>
+{%block heading%}
+<h2>{{ product_detail.name }}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ product_detail.name }}</h4>
+        </div>
+        <div>
+            {% if product_detail.image %}
+            <img src="{{ product_detail.image.url }}" alt="{{ product_detail.name }}">
+            {% else %}
+            <img src="" alt="{{ product_detail.name }}">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p>{{ product_detail.description}}</p>
+            <p>Товар добавлен: {{ product_detail.created_at|date:"d M Y" }}</p>
+            <p>Последние изменения: {{ product_detail.updated_at|date:"d M Y" }}</p>
+            <h1 class="card-title pricing-card-title">{{ product_detail.price }}</h1>
+            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
