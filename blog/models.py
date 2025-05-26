@@ -7,3 +7,11 @@ class BlogMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=False)
     view_counter = models.PositiveIntegerField(verbose_name='счетчик просмотров', default=0)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'запись'
+        verbose_name_plural = 'записи'
+        ordering = ['title', ]
