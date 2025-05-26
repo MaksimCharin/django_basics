@@ -1,29 +1,51 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Product
+from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
-def products_list(request):
-    products = Product.objects.all()
-    context = {
-        'products': products
-    }
-    return render(request, 'products_list.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/products_list.html'
+    context_object_name = 'products'
 
 
-def product_detail(request, pk):
-    product_detail = Product.objects.get(pk=pk)
-    context = {
-        'product_detail': product_detail,
-    }
-    return render(request, 'product_detail.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product_detail'
 
 
-def contacts(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        message = request.POST.get("message")
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ['name', 'description', 'image', 'category', 'price']
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('catalog:products_list')
 
-        return HttpResponse(f"{name}, Ваши данные отправлены!")
-    return render(request, 'contacts.html')
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name', 'description', 'image', 'category', 'price']
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('catalog:products_list')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:products_list')
+
+
+class ContactsView(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+# def contacts(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         phone = request.POST.get("phone")
+#         message = request.POST.get("message")
+#
+#         return HttpResponse(f"{name}, Ваши данные отправлены!")
+#     return render(request, 'catalog/contacts.html')
