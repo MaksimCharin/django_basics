@@ -40,12 +40,3 @@ class ProductDeleteView(DeleteView):
 
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
-
-# def contacts(request):
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         phone = request.POST.get("phone")
-#         message = request.POST.get("message")
-#
-#         return HttpResponse(f"{name}, Ваши данные отправлены!")
-#     return render(request, 'catalog/contacts.html')
