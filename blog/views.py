@@ -15,6 +15,12 @@ class MessageDetailView(DetailView):
     template_name = 'blog/message_detail.html'
     context_object_name = 'message'
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.view_counter += 1
+        self.object.save()
+        return self.object
+
 
 class MessageCreateView(CreateView):
     model = BlogMessage
