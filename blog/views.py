@@ -19,18 +19,18 @@ class MessageDetailView(DetailView):
 class MessageCreateView(CreateView):
     model = BlogMessage
     fields = ['title', 'description', 'preview']
-    template_name = 'catalog/product_form.html'
-    success_url = reverse_lazy('catalog:products_list')
+    template_name = 'blog/message_form.html'
+    success_url = reverse_lazy('blog:message_list')
 
 
-# class ProductUpdateView(UpdateView):
-#     model = BlogMessage
-#     fields = ['name', 'description', 'image', 'category', 'price']
-#     template_name = 'catalog/product_form.html'
-#     success_url = reverse_lazy('catalog:products_list')
-#
-#
-# class ProductDeleteView(DeleteView):
-#     model = BlogMessage
-#     template_name = 'catalog/product_confirm_delete.html'
-#     success_url = reverse_lazy('catalog:products_list')
+class MessageUpdateView(UpdateView):
+    model = BlogMessage
+    fields = ['title', 'description', 'preview']
+    template_name = 'blog/message_form.html'
+    success_url = reverse_lazy('blog:message_list')
+
+
+class MessageDeleteView(DeleteView):
+    model = BlogMessage
+    template_name = 'blog/message_confirm_delete.html'
+    success_url = reverse_lazy('blog:message_list')
