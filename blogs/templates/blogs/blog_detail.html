@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+<head>
+    {% block title %} {{ blog.title }} {% endblock %}
+</head>
+{%block heading%}
+<h2>{{ blog.title }}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ blog.title }}</h4>
+        </div>
+        <div>
+            {% if blog.preview %}
+            <img src="{{ blog.preview.url }}" alt="{{ blog.title }}">
+            {% else %}
+            <img src="" alt="{{ blog.title }}">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p>{{ blog.description}}</p>
+            <p>Сообщение добавлено: {{ blog.created_at|date:"d M Y" }}</p>
+            <p>{{ blog.is_published }}</p>
+            <p class="card-title pricing-card-title">Счетчик просмотров: {{ blog.view_counter }}</p>
+        </div>
+        <a class="btn btn-primary" href="{% url 'blogs:blogs_list' %}" role="button">Назад</a>
+    </div>
+</div>
+{% endblock %}

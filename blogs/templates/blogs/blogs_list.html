@@ -4,7 +4,7 @@
 
 {% block heading %}
 <h2>Список сообщений</h2>
-<a class="btn btn-primary" href="{% url 'blog:message_create' %}" role="button">Добавить сообщение</a>
+<a class="btn btn-primary" href="{% url 'blogs:blog_create' %}" role="button">Добавить сообщение</a>
 {% endblock %}
 
 {% block content %}
@@ -32,25 +32,25 @@
 </style>
 
 <div class="card-container">
-    {% for message in messages %}
+    {% for blog in blogs %}
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">
-                <a href="{% url 'blog:message_detail' message.pk %}">{{ message.title }}</a>
+                <a href="{% url 'blogs:blog_detail' blog.pk %}">{{ blog.title }}</a>
             </h5>
         </div>
         <div class="card-body">
-            {% if message.preview %}
-            <img src="{{ message.preview.url }}" class="card-img-top" alt="{{ message.title }}">
+            {% if blog.preview %}
+            <img src="{{ blog.preview.url }}" class="card-img-top" alt="{{ blog.title }}">
             {% else %}
-            <img src="" class="card-img-top" alt="{{ message.title }}">
+            <img src="" class="card-img-top" alt="{{ blog.title }}">
             {% endif %}
-            <p class="card-text">{{ message.description|truncatechars:100 }}</p>
+            <p class="card-text">{{ blog.description|truncatechars:100 }}</p>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary" href="{% url 'blog:message_detail' message.pk %}" role="button">Посмотреть</a>
-            <a class="btn btn-primary" href="{% url 'blog:message_update' message.pk %}" role="button">Редактировать</a>
-            <a class="btn btn-primary" href="{% url 'blog:message_delete' message.pk %}" role="button">Удалить</a>
+            <a class="btn btn-primary" href="{% url 'blogs:blog_detail' blog.pk %}" role="button">Посмотреть</a>
+            <a class="btn btn-primary" href="{% url 'blogs:blog_update' blog.pk %}" role="button">Редактировать</a>
+            <a class="btn btn-primary" href="{% url 'blogs:blog_delete' blog.pk %}" role="button">Удалить</a>
         </div>
     </div>
     {% endfor %}

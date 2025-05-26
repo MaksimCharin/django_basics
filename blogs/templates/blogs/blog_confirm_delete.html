@@ -8,12 +8,12 @@
         <div class="col-md-6">
             <form method="post" class="row g-3" enctype="multipart/form-data">
                 <div class="card shadow">
-                    <p class="card-text">Вы действительно хотите удалить {{ message.title }}</p>
+                    <p class="card-text">Вы действительно хотите удалить {{ blog.title }}</p>
                     <div class="card-body p-4">
                         {% csrf_token %}
                     </div>
                     <button type="submit" class="btn btn-danger w-100">Удалить</button>
-                    <a href="{% url 'blog:message_list' %}" class="btn btn-primary w-100" role="button">Отмена</a>
+                    <a href="{% url 'blogs:blogs_list' %}" class="btn btn-primary w-100" role="button">Отмена</a>
                 </div>
             </form>
         </div>
