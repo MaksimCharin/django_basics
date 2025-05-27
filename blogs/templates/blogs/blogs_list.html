@@ -1,0 +1,58 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Список сообщений{% endblock %}
+
+{% block heading %}
+<h2>Список сообщений</h2>
+<a class="btn btn-primary" href="{% url 'blogs:blog_create' %}" role="button">Добавить сообщение</a>
+{% endblock %}
+
+{% block content %}
+<style>
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
+    .card-img-top {
+        height: 200px;
+        object-fit: contain;
+    }
+    .card-body {
+        flex: 1 1 auto;
+    }
+    .card-text {
+        margin-top: auto;
+    }
+</style>
+
+<div class="card-container">
+    {% for blog in blogs %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">
+                <a href="{% url 'blogs:blog_detail' blog.pk %}">{{ blog.title }}</a>
+            </h5>
+        </div>
+        <div class="card-body">
+            {% if blog.preview %}
+            <img src="{{ blog.preview.url }}" class="card-img-top" alt="{{ blog.title }}">
+            {% else %}
+            <img src="" class="card-img-top" alt="{{ blog.title }}">
+            {% endif %}
+            <p class="card-text">{{ blog.description|truncatechars:100 }}</p>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="{% url 'blogs:blog_detail' blog.pk %}" role="button">Посмотреть</a>
+            <a class="btn btn-primary" href="{% url 'blogs:blog_update' blog.pk %}" role="button">Редактировать</a>
+            <a class="btn btn-primary" href="{% url 'blogs:blog_delete' blog.pk %}" role="button">Удалить</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
