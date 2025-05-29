@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 
 
 class ProductForm(forms.ModelForm):
+    stop_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+
     class Meta:
         model = Product
         fields = ['name', 'description', 'image', 'category', 'price']
@@ -26,9 +28,8 @@ class ProductForm(forms.ModelForm):
         cleaned_data = super().clean()
         name = cleaned_data.get('name')
         description = cleaned_data.get('description')
-        stop_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
-        for word in stop_words:
+        for word in self.stop_words:
             if word in name.lower() or word in description.lower():
                 raise ValidationError(f'Использование слова "{word}" запрещено!')
 
