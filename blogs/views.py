@@ -2,6 +2,7 @@ from blogs.models import BlogMessage
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from .forms import BlogMessageForm
 
 
 class BlogListView(ListView):
@@ -27,14 +28,14 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = BlogMessage
-    fields = ['title', 'description', 'preview', 'is_published']
+    form_class = BlogMessageForm
     template_name = 'blogs/blog_form.html'
     success_url = reverse_lazy('blogs:blogs_list')
 
 
 class BlogUpdateView(UpdateView):
     model = BlogMessage
-    fields = ['title', 'description', 'preview', 'is_published']
+    form_class = BlogMessageForm
     template_name = 'blogs/blog_form.html'
     success_url = reverse_lazy('blogs:blogs_list')
 
