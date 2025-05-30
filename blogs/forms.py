@@ -13,4 +13,4 @@ class BlogMessageForm(forms.ModelForm):
         self.fields['description'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Введите текст сообщения'})
         self.fields['preview'].widget.attrs.update({'class': 'form-control'})
-        self.fields['is_published'].widget = forms.CheckboxInput(attrs={'class': 'form-check-input'})
+        self.fields['is_published'].widget.attrs.update({'class': 'form-check-input'})
