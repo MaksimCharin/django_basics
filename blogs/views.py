@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from .forms import BlogMessageForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class BlogListView(ListView):
@@ -26,14 +27,14 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = BlogMessage
     form_class = BlogMessageForm
     template_name = 'blogs/blog_form.html'
     success_url = reverse_lazy('blogs:blogs_list')
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogMessage
     form_class = BlogMessageForm
     template_name = 'blogs/blog_form.html'
@@ -43,7 +44,7 @@ class BlogUpdateView(UpdateView):
         return reverse('blogs:blog_detail', args=[self.kwargs.get('pk')])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogMessage
     template_name = 'blogs/blog_confirm_delete.html'
     success_url = reverse_lazy('blogs:blogs_list')

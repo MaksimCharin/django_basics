@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserLoginForm
 from django.core.mail import send_mail
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
+
 
 class RegisterView(CreateView):
     template_name = 'users/register.html'
@@ -22,3 +24,8 @@ class RegisterView(CreateView):
         recipient_list = [user_email]
         send_mail(subject, message, from_email, recipient_list)
 
+
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    authentication_form = UserLoginForm
+    success_url = reverse_lazy('catalog:product_list')
