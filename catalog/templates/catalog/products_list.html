@@ -46,14 +46,14 @@
             </div>
             <div class="card-footer">
                 <h5 class="card-title">{{ product.price }}</h5>
-                <!--                    <button class="btn btn-primary btn-block">Купить</button>-->
                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
                    role="button">Посмотреть</a>
-                {% if user.is_authenticated %}
+                {% if request.user == product.creator or perms.catalog.can_unpublish_product and perms.catalog.can_delete_product %}
                 <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}" role="button">Pедактировать</a>
                 <a class="btn btn-primary" href="{% url 'catalog:product_delete' product.pk %}"
                    role="button">Удалить</a>
                 {% endif %}
+
             </div>
         </div>
     </div>
