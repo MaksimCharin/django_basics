@@ -35,3 +35,9 @@ class ProductForm(forms.ModelForm):
                 raise ValidationError(f'Использование слова "{word}" запрещено!')
 
         return cleaned_data
+
+
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'image', 'category', 'price', 'is_published',]
