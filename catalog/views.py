@@ -9,7 +9,34 @@ from .forms import ProductForm, ProductModeratorForm
 
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
-from django.core.cache import cache
+from .services import ProductService, CategoryService
+
+from .models import Category
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'catalog/category.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        return CategoryService.get_category_from_cache()
+
+
+class ProductByCategoryListView(ListView):
+    model = Product
+    template_name = 'catalog/category_products.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return ProductService.get_products_in_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs['category_id']
+        context['category'] = Category.objects.get(pk=category_id)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 class ProductListView(ListView):
@@ -18,11 +45,7 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = cache.get('products_queryset')
-        if not queryset:
-            queryset = super().get_queryset()
-            cache.set('products_queryset', queryset, 60 * 15)
-        return queryset
+        return ProductService.get_products_from_cache()
 
     # отображение списка товаров со значением is_published=True, отключил для целостного отображения
     # def get_queryset(self):
