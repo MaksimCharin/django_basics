@@ -7,17 +7,29 @@ from django.core.exceptions import PermissionDenied
 
 from .forms import ProductForm, ProductModeratorForm
 
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
+
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/products_list.html'
     context_object_name = 'products'
 
+    def get_queryset(self):
+        queryset = cache.get('products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('products_queryset', queryset, 60 * 15)
+        return queryset
+
     # отображение списка товаров со значением is_published=True, отключил для целостного отображения
     # def get_queryset(self):
     #     return Product.objects.filter(is_published=True)
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
