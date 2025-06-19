@@ -1,0 +1,28 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+  <h1>Продукты в категории: {{ category.name }}</h1>
+  <p>{{ category.description }}</p>
+  <h3>Другие категории:</h3>
+  <ul>
+    {% for cat in categories %}
+      <li>
+        <a href="{% url 'catalog:category_products' cat.id %}">{{ cat.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul>
+    {% for product in products %}
+      <li>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p>Цена: {{ product.price }}</p>
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'catalog:products_list' %}">Назад к списку продуктов</a>
+{% endblock %}
